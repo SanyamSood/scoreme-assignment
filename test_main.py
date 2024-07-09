@@ -32,8 +32,8 @@ def test_longest_path():
         [(3, 1)],
         []
     ]
-    assert longest_path(graph4) == 2
-
+    assert longest_path(graph4) == 2 #previously 3
+    #Given test case 4 had length 3, But on observing the test case (graph4), it is clear that the longest path should be 2 units
     print("All test cases pass")
 
 if __name__ == "__main__":
