@@ -31,21 +31,20 @@ Example:
 >>> longest_path(graph)
 7
 """
+
 def longest_path(graph):
+    
     topo_order = topological_sort(graph)
     return calculate_longest_path(graph, topo_order)
 
-
-
-# Helper function to perform topological sort 
 def topological_sort(graph):
-        n = len(graph) # number of nodes
+        n = len(graph)
         visited = [False] * n
         topo_stack = []
         
         def dfs(node):
             visited[node] = True
-            for neighbor, weight in graph[node]:
+            for neighbor, _ in graph[node]:
                 if not visited[neighbor]:
                     dfs(neighbor)
             topo_stack.append(node)
@@ -56,21 +55,18 @@ def topological_sort(graph):
         
         return topo_stack[::-1]
 
-    
-# Function to calculate longest path using topological sort
 def calculate_longest_path(graph, topo_order):
         n = len(graph)
         dist = [-float('inf')] * n
         
-        # Initialize distances of nodes with no incoming edges
         for node in topo_order:
             if dist[node] == -float('inf'):
-                dist[node] = 0
-        
-        for node in topo_order:
-            if dist[node] != -float('inf'):
-                for neighbor, weight in graph[node]:
-                    if dist[neighbor] < dist[node] + weight:
-                        dist[neighbor] = dist[node] + weight
+                dist[node] = 0  # Initialize the distance of start nodes to 0
+            
+            for neighbor, weight in graph[node]:
+                if dist[neighbor] < dist[node] + weight:
+                    dist[neighbor] = dist[node] + weight
         
         return max(dist)
+    
+   
